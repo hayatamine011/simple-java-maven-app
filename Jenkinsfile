@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        kubernetes {
+        docker {
             sh 'echo hello k8s' 
         }
     }
