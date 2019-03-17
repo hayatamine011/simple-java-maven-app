@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh ' echo build' 
+                sh ' echo build k8S' 
             }
         }
     }
