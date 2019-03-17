@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        any {
+        kubernetes {
             sh 'echo hello' 
         }
     }
