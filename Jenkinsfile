@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-            sh 'echo hello' 
+            sh 'echo hello kub' 
         }
     }
     stages {
