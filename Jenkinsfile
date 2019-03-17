@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh ' echo build k8S token web hook pip2' 
+                sh ' echo 11build k8S token web hook pip2' 
             }
         }
     }
