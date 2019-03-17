@@ -1,7 +1,7 @@
 
  pipeline {
     agent {
-        any {
+          any {
             sh 'echo hello k8s' 
         }
     }
