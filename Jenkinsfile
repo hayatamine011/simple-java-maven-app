@@ -2,7 +2,7 @@
  pipeline {
     agent {
           any {
-            sh 'echo hello k8s blue' 
+            sh 'echo hello k8s blue2' 
         }
     }
     stages {
