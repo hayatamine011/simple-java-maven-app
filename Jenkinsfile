@@ -1,17 +1,27 @@
             
  pipeline {
-    agent {
-          any {
-            sh 'echo hello k8s blue2' 
+     agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v /root/.m2:/root/.m2'
         }
     }
     stages {
-        stage('Build1') { 
+        stage('Build') {
             steps {
-                sh ' echo 11build k8S token web hook pip2' 
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-    
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+        }
 stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQubeScanner'
