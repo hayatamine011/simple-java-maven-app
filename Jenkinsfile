@@ -4,7 +4,7 @@ node {
     git 'https://github.com/hayatamine011/simple-java-maven-app'
   }
   stage('SonarQube analysis') {
-    withSonarQubeEnv('My SonarQube Server') {
+    withSonarQubeEnv('sonarqube') {
       sh 'mvn clean package sonar:sonar'
     } // SonarQube taskId is automatically attached to the pipeline context
   }
