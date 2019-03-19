@@ -22,6 +22,11 @@
                 }
             }
         }
+                  stage('Deliver') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+            }
+        }
 stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQubeScanner'
