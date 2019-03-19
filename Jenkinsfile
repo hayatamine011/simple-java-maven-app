@@ -11,7 +11,7 @@
                 sh ' echo 11build k8S token web hook pip2' 
             }
         }
-    }
+    
 stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQubeScanner'
@@ -25,4 +25,4 @@ stage('Sonarqube') {
         }
     }
 }
-}
+}}
