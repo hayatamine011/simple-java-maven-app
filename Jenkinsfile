@@ -1,5 +1,5 @@
             
- pipeline {
+ /*pipeline {
      agent {
         docker {
             image 'maven:3-alpine'
@@ -22,8 +22,8 @@
         
  }
        
-
- /*pipeline {
+*/
+ pipeline {
      agent {
         docker {
             image 'maven:3-alpine'
@@ -57,9 +57,8 @@ stages {
 	 
 	post {
         always {
-            slack $currentBuild.currentResult
+                        slack(currentBuild.currentResult)
             
         }
     }
  }
-*/
