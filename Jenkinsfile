@@ -36,7 +36,7 @@
                 post {
         always {
 	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
-           /* slackNotifier(currentBuild.currentResult)*/
+            slackNotifier(${currentBuild.currentResult})
 		 echo "Pipeline result: ${currentBuild.result}"
 		            echo "Pipeline currentResult: ${currentBuild.currentResult}"
 
