@@ -9,7 +9,7 @@
 	 stages {
 	 stage('build && SonarQube analysis') {
             steps {
-                        sayHello 'SUCCESS'
+                        slackNotifier 'SUCCESS'
 
                      //slackNotifier 'SUCCESS'
             
