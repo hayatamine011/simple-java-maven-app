@@ -11,7 +11,7 @@
             steps {
                         sayHello 'Pinehead'
 
-                     
+                     slackNotifier 'SUCCESS'
             
         } }
              
@@ -19,15 +19,6 @@
         
              }
 
-                post {
-        always {
-	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
-		slackNotifier 'SUCCESS'
-		 echo "Pipeline result: ${currentBuild.result}"
-		            echo "Pipeline currentResult: ${currentBuild.currentResult}"
-
-  
-        }
-    }
+        
  }
        
