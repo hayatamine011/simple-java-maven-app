@@ -52,4 +52,13 @@
         
     
 }
-              }}
+              }
+	 
+	post {
+        always {
+	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+            slack $currentBuild.currentResult
+            
+        }
+    }
+ }
