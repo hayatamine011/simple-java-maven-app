@@ -13,7 +13,7 @@
                         sayHello 'Pinehead'
                 withSonarQubeEnv('sonarServer') {
                     // Optionally use a Maven environment you've configured already
-                        sh 'mvn clean package sonar:sonar'
+                        sh 'mvn clean package'
                     
                 }
                      
