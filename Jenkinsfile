@@ -11,7 +11,7 @@
             steps {
                         sayHello 'Pinehead'
 
-                     slackNotifier 'SUCCESS'
+                     slackNotifier ('SUCCESS')
             
         } }
              
