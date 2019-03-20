@@ -9,7 +9,7 @@
                 stages {
      stage('build && SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarQubeScanner') {
+                withSonarQubeEnv('sonarqube') {
                     // Optionally use a Maven environment you've configured already
                         sh 'mvn clean package sonar:sonar'
                     
