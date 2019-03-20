@@ -6,8 +6,15 @@
             args '-v /root/.m2:/root/.m2'
         }
     }
+	 stage('build && SonarQube analysis') {
+            steps {
+                        sayHello 'Pinehead'
+
+                     
+            
+        } }
              
-                stages {
+               /* stages {
      stage('build && SonarQube analysis') {
             steps {
                         sayHello 'Pinehead'
@@ -19,7 +26,7 @@
                      
             
         } }
-        /*stage("Quality Gate") {
+        stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
@@ -36,7 +43,7 @@
                 post {
         always {
 	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
-            slackNotifier(${currentBuild.currentResult})
+		slackNotifier ${currentBuild.currentResult}
 		 echo "Pipeline result: ${currentBuild.result}"
 		            echo "Pipeline currentResult: ${currentBuild.currentResult}"
 
