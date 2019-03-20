@@ -40,7 +40,7 @@ stages {
                         sh 'mvn clean package sonar:sonar'
                     
                 }
-            
+	    }
          }
         stage("Quality Gate") {
             steps {
