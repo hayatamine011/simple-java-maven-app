@@ -15,9 +15,7 @@
                         sh 'mvn clean package sonar:sonar'
                     
                 }
-                       steps {
-                        slackSend color: 'red', message: 'build'
-                                    }
+                     
             
         } }
         stage("Quality Gate") {
@@ -32,5 +30,19 @@
         
     
 }
-              }}
+              }
+ post {
+       // only triggered when blue or green sign
+       success {
+                        slackSend color: 'red', message: 'build'
+       }
+       // triggered when red sign
+       failure {
+                        slackSend color: 'red', message: 'build'
+       }
+       // trigger every-works
+       always {
+                        slackSend color: 'red', message: 'build'
+       }
+    }}
        
