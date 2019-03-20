@@ -19,11 +19,14 @@ stages {
          }
         stage("Quality Gate") {
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    // Requires SonarQube Scanner for Jenkins 2.7+
-                    waitForQualityGate abortPipeline: true
+
+                timeout(time: 10, unit: 'MINUTES') {
+                qualitygate = waitForQualityGate()
+                if (qualitygate.status != "OK") {
+                currentBuild.result = "FAILURE"
+                slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000/sonarqube/projects|Review in SonarQube>.")
+            }
+                    //waitForQualityGate abortPipeline: true
                 }
             }
         
