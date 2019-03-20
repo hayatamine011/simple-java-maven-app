@@ -6,6 +6,7 @@
             args '-v /root/.m2:/root/.m2'
         }
     }
+                stages {
      stage('build && SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQubeScanner') {
@@ -27,5 +28,5 @@
         
     
 }
-              }
+              }}
        
