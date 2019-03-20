@@ -1,5 +1,5 @@
             
- pipeline {
+ /*pipeline {
      agent {
         docker {
             image 'maven:3-alpine'
@@ -20,9 +20,9 @@
              }
 
         
- }
+ }*/
        
-/*
+
  pipeline {
      agent {
         docker {
@@ -30,7 +30,9 @@
             args '-v /root/.m2:/root/.m2'
         }
     }
-                stages {
+     
+	 
+stages {
      stage('build && SonarQube analysis') {
             steps {
                 withSonarQubeEnv('sonarServer') {
@@ -39,7 +41,7 @@
                     
                 }
             
-        } }
+         }
         stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
@@ -50,9 +52,8 @@
                 }
             }
         
-    
-}
-              }
+          }
+      }
 	 
 	post {
         always {
@@ -61,4 +62,3 @@
         }
     }
  }
-*/
