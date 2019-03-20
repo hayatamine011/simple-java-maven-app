@@ -6,38 +6,26 @@
             args '-v /root/.m2:/root/.m2'
         }
     }
-    stages {
-        stage('Build') {
+     stage('build && SonarQube analysis') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
+                withSonarQubeEnv('SonarQubeScanner') {
+                    // Optionally use a Maven environment you've configured already
+                        sh 'mvn clean package sonar:sonar'
+                    
                 }
             }
         }
-  stage('Deliver') {
+        stage("Quality Gate") {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    // Requires SonarQube Scanner for Jenkins 2.7+
+                    waitForQualityGate abortPipeline: true
+                }
             }
-        }
-stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'SonarQubeScanner'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh 'mvn clean package sonar:sonar'
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
         }
     }
 }
-}}
+             
+       
