@@ -22,10 +22,22 @@
                 }
             }
         }
-                  stage('Deliver') {
+  stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'SonarQubeScanner'
+    }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh 'mvn clean package sonar:sonar'
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
 }
-             }
+}}
