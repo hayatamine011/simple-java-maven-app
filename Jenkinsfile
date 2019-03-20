@@ -20,12 +20,12 @@ stages {
         stage("Quality Gate") {
             steps {
 
-                timeout(time: 10, unit: 'MINUTES') {
+                //timeout(time: 10, unit: 'MINUTES') {
                 qualitygate = waitForQualityGate()
                 if (qualitygate.status != "OK") {
                 currentBuild.result = "FAILURE"
-                slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000/sonarqube/projects|Review in SonarQube>.")
-            }
+              //  slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000/sonarqube/projects|Review in SonarQube>.")
+           // }
                     //waitForQualityGate abortPipeline: true
                 }
             }
