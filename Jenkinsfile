@@ -19,7 +19,7 @@
                      
             
         } }
-        stage("Quality Gate") {
+        /*stage("Quality Gate") {
             steps {
                 timeout(time: 1, unit: 'HOURS') {
                     // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
@@ -30,20 +30,15 @@
             }
         
     
-}
+}*/
               }
- post {
-       // only triggered when blue or green sign
-       success {
-                        slackSend color: 'red', message: 'build'
-       }
-       // triggered when red sign
-       failure {
-                        slackSend color: 'red', message: 'build'
-       }
-       // trigger every-works
-       always {
-                        slackSend color: 'red', message: 'build'
-       }
-    }}
+
+                post {
+        always {
+	    /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+            slackNotifier(currentBuild.currentResult)
+            cleanWs()
+        }
+    }
+ }
        
