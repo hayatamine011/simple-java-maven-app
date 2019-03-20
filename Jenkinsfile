@@ -1,5 +1,5 @@
             
- /*pipeline {
+ pipeline {
      agent {
         docker {
             image 'maven:3-alpine'
@@ -9,7 +9,7 @@
 	 stages {
 	 stage('build && SonarQube analysis') {
             steps {
-                        slack 'SUCCESS'
+                        slack $currentBuild.currentResult
 
                      //slackNotifier 'SUCCESS'
             
@@ -22,7 +22,7 @@
         
  }
        
-*/
+/*
  pipeline {
      agent {
         docker {
@@ -62,3 +62,4 @@
         }
     }
  }
+*/
