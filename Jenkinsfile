@@ -16,10 +16,6 @@ pipeline {
             }
         }
         stage('SonarQube analysis') {
-            /* options {
-   timeout(time: 5, unit: 'MINUTES')
-   retry(2)
-}*/
             steps {
                 withSonarQubeEnv('sonarServer') {
                     sh "mvn sonar:sonar"
