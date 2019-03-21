@@ -9,13 +9,34 @@
 	 
 stages {
      stage('build && SonarQube analysis') {
-            steps {
+	      steps {
+                    // Optionally use a Maven environment you've configured already
+                        sh 'mvn clean package'
+                    
+                
+	    }
+	             steps {
+          script {
+            STAGE_NAME = "SonarQube analysis"
+      
+            withSonarQubeEnv('sonarServer') {
+              sh "mvn sonar:sonar"
+            }
+      
+            qualitygate = waitForQualityGate()
+            if (qualitygate.status != "OK") {
+              currentBuild.result = "FAILURE"
+              slackSend (channel: '****', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://****.com:9000/sonarqube/projects|Review in SonarQube>.")
+            }
+          }
+        }
+           /* steps {
                 withSonarQubeEnv('sonarServer') {
                     // Optionally use a Maven environment you've configured already
                         sh 'mvn clean package sonar:sonar'
                     
                 }
-	    }
+	    }*/
          }
         stage("Quality Gate") {
             steps {
