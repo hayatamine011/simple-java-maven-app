@@ -1,4 +1,3 @@
- 
 def qualitygate
 pipeline {
      agent {
@@ -7,8 +6,6 @@ pipeline {
             args '-v /root/.m2:/root/.m2'
         }
     }
-     
-	 
 stages {
      stage('build ') {
 	      steps {
@@ -20,8 +17,6 @@ stages {
 	      stage('SonarQube analysis') {
 	             steps {
           script {
-            STAGE_NAME = "SonarQube analysis"
-      
             withSonarQubeEnv('sonarServer') {
               sh "mvn sonar:sonar"
             }
@@ -31,36 +26,28 @@ stages {
         }
          
          }
-        stage("Quality Gate") {
-		
-        steps {
-             script {
-            qualitygate = "waitForQualityGate()"
-		echo 'iiiiiiiiiiiiiiiiiiiiiiiiiiii'
-		     echo qualitygate
-            //echo qualitygate.status
-            if (qualitygate.status != "OK") {
-              currentBuild.result = "FAILURE"
-		    slack('FAILURE')
-              //slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://****.com:9000/sonarqube/projects|Review in SonarQube>.")
-            }
-              
-            }
-	          }
-          }
-      }
+
+}
 	 
 	post {
-        always {script {
-            
-            //if (qualitygate.status != "OK") {
-              //currentBuild.result = "FAILURE"
-		    slack('FAILURE')
-              //slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://****.com:9000/sonarqube/projects|Review in SonarQube>.")
-	    //}
+        success {
+             script {
+             if (waitForQualityGate().status != "OK") {
+		  slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000/sonarqube/projects|Review in SonarQube>.")
+             }else{ 
+		  slackSend (channel: '#jenkins', color: '#29ef16', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: SUCCEFULL! <http://192.168.1.67:9000/sonarqube/projects|Review in SonarQube>.")
+             }
+	        }
+        } 
+	   unsuccessful {
+	   script {
+ if (waitForQualityGate().status != "OK") {
+		  slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000/sonarqube/projects|Review in SonarQube>.")
+             }else{ 
+		  slackSend (channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: FAILLED!")
+             }
 	       }
-             //slack(currentBuild.currentResult)
-            
+
         }
     }
  }
