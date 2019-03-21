@@ -8,13 +8,14 @@
      
 	 
 stages {
-     stage('build && SonarQube analysis') {
+     stage('build ') {
 	      steps {
                     // Optionally use a Maven environment you've configured already
                         sh 'mvn clean package'
                     
                 
-	    }
+	      }}
+	      stage('SonarQube analysis') {
 	             steps {
           script {
             STAGE_NAME = "SonarQube analysis"
