@@ -29,20 +29,16 @@ stages {
            
           }
         }
-           /* steps {
-                withSonarQubeEnv('sonarServer') {
-                    // Optionally use a Maven environment you've configured already
-                        sh 'mvn clean package sonar:sonar'
-                    
-                }
-	    }*/
+         
          }
         stage("Quality Gate") {
 		
         steps {
              script {
-            qualitygate = waitForQualityGate()
-            echo qualitygate.status
+            qualitygate = "waitForQualityGate()"
+		echo 'iiiiiiiiiiiiiiiiiiiiiiiiiiii'
+		     echo qualitygate
+            //echo qualitygate.status
             if (qualitygate.status != "OK") {
               currentBuild.result = "FAILURE"
 		    slack('FAILURE')
