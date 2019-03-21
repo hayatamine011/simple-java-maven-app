@@ -15,17 +15,20 @@ stages {
                 
 	      }}
 	      stage('SonarQube analysis') {
+	                 /* options {
+            timeout(time: 5, unit: 'MINUTES')
+            retry(2)
+        }*/
 	             steps {
-          script {
-            withSonarQubeEnv('sonarServer') {
+	                 withSonarQubeEnv('sonarServer') {
               sh "mvn sonar:sonar"
             }
-      
-           
-          }
+          timeout(time: 5, unit: 'MINUTES') {
+              
+            waitForQualityGate abortPipeline: true
         }
          
-         }
+         }}
 
 }
 	 
