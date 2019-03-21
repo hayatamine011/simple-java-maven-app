@@ -1,4 +1,6 @@
- pipeline {
+ 
+def qualitygate
+pipeline {
      agent {
         docker {
             image 'maven:3-alpine'
