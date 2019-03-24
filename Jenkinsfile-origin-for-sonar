@@ -30,7 +30,7 @@ pipeline {
 
     }
 
-    post {
+    /*post {
         success {
             script {
                 qualitygate = waitForQualityGate().status
@@ -50,6 +50,6 @@ pipeline {
                 }
             }
 
-        }
+        }*/
     }
 }
