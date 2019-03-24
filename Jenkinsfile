@@ -16,6 +16,19 @@ podTemplate(
 
 
         
-        }} 
+        }
+              stage('SonarQube analysis') {
+           
+                withSonarQubeEnv('sonarServer') {
+                    sh "mvn sonar:sonar"
+                }
+                timeout(time: 5, unit: 'MINUTES') {
+
+                    waitForQualityGate abortPipeline: true
+                }
+
+           
+        }
+        } 
     } 
 }
