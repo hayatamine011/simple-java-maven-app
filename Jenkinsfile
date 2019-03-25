@@ -40,7 +40,7 @@ pipeline {
           sh 'echo k8sUpgradeBeta(project, domain, "--set replicaCount=2 --set dbReplicaCount=1")'
         }
         container("kubectl") {
-        sh 'echo  k8sRolloutBeta(project)'æ
+        sh 'echo  k8sRolloutBeta(project)'
         }
         container("golang") {
           sh 'echo k8sFuncTestGolang(project, domain)'
