@@ -25,7 +25,6 @@ pipeline {
         container("golang") {
           script {
             currentBuild.displayName = new SimpleDateFormat("yy.MM.dd").format(new Date()) + "-${env.BUILD_NUMBER}"
-            echo $currentBuild.displayName
           }
         echo  'k8sBuildGolang("go-demo")"'
         }
