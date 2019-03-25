@@ -23,7 +23,7 @@ pipeline {
         echo  'hello go'
         }
         container("docker") {
-          echo 'hello doc'
+          sh ' docker ps'
         }
       }
     }
