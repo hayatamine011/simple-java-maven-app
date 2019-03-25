@@ -22,8 +22,13 @@ pipeline {
         container("golang") {
         echo  'hello go'
         }
-        container("docker") {
-          sh ' docker ps'
+        container("maven") {
+                              sh "mvn sonar:sonar"
+                }
+                timeout(time: 5, unit: 'MINUTES') {
+
+                    waitForQualityGate abortPipeline: true
+                }
         }
       }
     }
