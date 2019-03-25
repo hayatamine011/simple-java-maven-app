@@ -18,6 +18,7 @@ pipeline {
   }
   stages {
     stage("build") {
+                steps {
         container("maven") {
                           sh 'mvn clean package -DskipTests'
                           withSonarQubeEnv('sonarServer') {
@@ -31,7 +32,9 @@ pipeline {
           
                            }
                      }
-          }
+                 }
+         }
+    
     
     
   }
