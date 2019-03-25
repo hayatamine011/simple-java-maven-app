@@ -29,7 +29,7 @@ pipeline {
         echo  'hello go'
         }
         container("docker") {
-          sh 'hello doc'
+          echo 'hello doc'
         }
       }
     }
