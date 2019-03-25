@@ -26,10 +26,10 @@ pipeline {
           script {
             currentBuild.displayName = new SimpleDateFormat("yy.MM.dd").format(new Date()) + "-${env.BUILD_NUMBER}"
           }
-        echo  'k8sBuildGolang("go-demo")"'
+        echo  'hello go'
         }
         container("docker") {
-          sh 'echo k8sBuildImageBeta(image, false)'
+          sh 'hello doc'
         }
       }
     }
