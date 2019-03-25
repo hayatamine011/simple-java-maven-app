@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat
 
-<<<<<<< HEAD
 pipeline {
   options {
     buildDiscarder logRotator(numToKeepStr: '5')
@@ -69,23 +68,3 @@ pipeline {
       }
     }
   }
-=======
-
-        
-        }
-              stage('SonarQube analysis') {
-           
-                withSonarQubeEnv('sonarServer') {
-                    sh "mvn sonar:sonar"
-                }
-                timeout(time: 5, unit: 'MINUTES') {
-
-                    waitForQualityGate abortPipeline: true
-                }
-
-           
-        }
-        } 
-    } 
->>>>>>> a59155e8ef7392e1c86dbe349d2f36d44280dff7
-}
