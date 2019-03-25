@@ -25,46 +25,15 @@ pipeline {
         container("golang") {
           script {
             currentBuild.displayName = new SimpleDateFormat("yy.MM.dd").format(new Date()) + "-${env.BUILD_NUMBER}"
-            sh 'echo $currentBuild.displayName'
+            echo $currentBuild.displayName
           }
-        sh  'echo  k8sBuildGolang("go-demo")'
+        echo  'k8sBuildGolang("go-demo")"'
         }
         container("docker") {
           sh 'echo k8sBuildImageBeta(image, false)'
         }
       }
     }
-    stage("func-test") {
-      steps {
-        container("helm") {
-          sh 'echo k8sUpgradeBeta(project, domain, "--set replicaCount=2 --set dbReplicaCount=1")'
-        }
-        container("kubectl") {
-        sh 'echo  k8sRolloutBeta(project)'
-        }
-        container("golang") {
-          sh 'echo k8sFuncTestGolang(project, domain)'
-        }
-      }
-      post {
-        always {
-          container("helm") {
-            sh 'echo k8sDeleteBeta(project)'
-          }
-        }
-      }
-    }
-    stage("release") {
-      when {
-          branch "master"
-      }
-      steps {
-        container("docker") {
-          sh 'echo k8sPushImage(image, false)'
-        }
-        container("helm") {
-        sh 'echo  k8sPushHelm(project, "", cmAddr, true, true)'
-        }
-      }
+    
     }
   }
