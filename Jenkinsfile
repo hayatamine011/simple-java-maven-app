@@ -18,20 +18,20 @@ pipeline {
   }
   stages {
     stage("build") {
-      steps {
-        container("golang") {
-        echo  'hello go'
-        }
         container("maven") {
-                              sh "mvn sonar:sonar"
-                }
-                timeout(time: 5, unit: 'MINUTES') {
+                          sh 'mvn clean package -DskipTests'
+                          withSonarQubeEnv('sonarServer') {
+                          sh "mvn sonar:sonar"
+                                                          }
+                           timeout(time: 5, unit: 'MINUTES') {
 
-                    waitForQualityGate abortPipeline: true
-                }
-        }
-      }
-    }
+                           waitForQualityGate abortPipeline: true
+                                                              }
+          
+          
+                   }
+          }
+    
     
     
   }
