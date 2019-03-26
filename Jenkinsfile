@@ -24,7 +24,7 @@ pipeline {
                           withSonarQubeEnv('sonarServer') {
                           sh "mvn sonar:sonar"
                                                           }
-                           timeout(time: 5, unit: 'MINUTES') {
+                           timeout(time: 10, unit: 'MINUTES') {
 
                            waitForQualityGate abortPipeline: true
                                                               }
@@ -41,16 +41,16 @@ pipeline {
             script {
                 qualitygate = waitForQualityGate().status
                 if (qualitygate != "OK") {
-                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000 |Review in SonarQube>.")
+                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://sonar.192.168.1.151.nip.io |Review in SonarQube>.")
                 } else {
-                    slackSend(channel: '#jenkins', color: '#29ef16', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: SUCCEFULL! <http://192.168.1.67:9000|Review in SonarQube>.")
+                    slackSend(channel: '#jenkins', color: '#29ef16', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: SUCCEFULL! <http://sonar.192.168.1.151.nip.io|Review in SonarQube>.")
                 }
             }
         }
         unsuccessful {
             script {
                 if (qualitygate != "OK") {
-                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://192.168.1.67:9000|Review in SonarQube>.")
+                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://sonar.192.168.1.151.nip.io|Review in SonarQube>.")
                 } else {
                     slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: FAILLED!")
                 }
