@@ -41,18 +41,18 @@ pipeline {
             script {
                 qualitygate = waitForQualityGate().status
                 if (qualitygate != "OK") {
-                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://sonar.192.168.1.151.nip.io |Review in SonarQube>.")
+                    slackSend(channel: '#jenkins', color: 'danger', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://sonar.192.168.1.151.nip.io |Review in SonarQube>.")
                 } else {
-                    slackSend(channel: '#jenkins', color: '#29ef16', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: SUCCEFULL! <http://sonar.192.168.1.151.nip.io|Review in SonarQube>.")
+                    slackSend(channel: '#jenkins', color: 'good', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: SUCCEFULL! <http://sonar.192.168.1.151.nip.io|Review in SonarQube>.")
                 }
             }
         }
         unsuccessful {
             script {
                 if (qualitygate != "OK") {
-                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://sonar.192.168.1.151.nip.io|Review in SonarQube>.")
+                    slackSend(channel: '#jenkins', color: 'danger', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: Code coverage threshold was not met! <http://sonar.192.168.1.151.nip.io|Review in SonarQube>.")
                 } else {
-                    slackSend(channel: '#jenkins', color: '#F01717', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: FAILLED!")
+                    slackSend(channel: '#jenkins', color: 'danger', message: "*$JOB_NAME*, <$BUILD_URL|Build #$BUILD_NUMBER>: FAILLED!")
                 }
             }
 
