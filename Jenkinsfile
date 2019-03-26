@@ -1,4 +1,4 @@
-
+def qualitygate
 pipeline {
   options {
     buildDiscarder logRotator(numToKeepStr: '5')
